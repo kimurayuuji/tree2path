@@ -73,7 +73,7 @@ BEGIN {
   comment_tag_reg = "{comment:.*}"
   after_colon_reg = ":.*"
   print "<table border=1>"  
-  printf ("<tr><td class=\"s-header\" colspan=\"%d\">Insepection List</td><td class=\"s-header\">Comment</td></tr>", '$columnCount'+1)
+  printf ("<tr><td class=\"s-header\" colspan=\"%d\">Insepection List</td><td class=\"s-header\">Comment</td></tr>", '$columnCount'+2)
 }
 
 match($0, comment_tag_reg, m) {
@@ -85,7 +85,7 @@ match($0, comment_tag_reg, m) {
   comment = substr(comment, comment_content_index + 1, length(comment) - 1 - comment_content_index)
 
   sub(comment_tag_reg, "", $0)
-  $('$columnCount'+1) = comment
+  $('$columnCount'+2) = comment
 }
 
 {
@@ -112,7 +112,8 @@ match($0, comment_tag_reg, m) {
     prevRow[i] = current
   }
 
-  $('$columnCount'+1) = "<td class=\"s-base\">" $('$columnCount'+1) "</td>"
+  $('$columnCount'+1) = "<td class=\"s-blank\">" $('$columnCount'+1) "</td>"
+  $('$columnCount'+2) = "<td class=\"s-base\">" $('$columnCount'+2) "</td>"
 
   print $0
   print "</tr>"
